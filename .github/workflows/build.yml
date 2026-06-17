@@ -34,7 +34,10 @@ jobs:
 
       - name: Install Tesseract (Windows)
         if: runner.os == 'Windows'
-        run: choco install tesseract --yes
+        run: |
+          choco install tesseract --yes
+          curl.exe -fsSL -o "C:\Program Files\Tesseract-OCR\tessdata\deu.traineddata" `
+            https://github.com/tesseract-ocr/tessdata/raw/main/deu.traineddata
 
       - name: Install dependencies
         run: |
