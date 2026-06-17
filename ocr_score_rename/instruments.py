@@ -18,20 +18,27 @@ TUNING_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     (
         "E",
         re.compile(
-            r"(?:in[\s-]+)?(?:es|ess|e[sß]|eb|e[\s-]?flat|mi[\s-]?bemol(?:le)?|mib)\b",
+            r"(?:in[\s-]+(?:es|ess|e[sß])|e[\s-]?flat|eb[\s-]?flat|mi[\s-]?bemol(?:le)?)\b",
             re.IGNORECASE,
         ),
     ),
-    (
-        "B",
-        re.compile(
-            r"(?:in[\s-]+)?(?:b[\s-]?(?:flat|dur)?|si[\s-]?bemol(?:le)?|bes)\b",
-            re.IGNORECASE,
+        (
+            "B",
+            re.compile(
+                r"(?:"
+                r"in[\s-]+b(?:[\s-]?(?:flat|dur|p|o|d))?"
+                r"|b[\s-]dur"
+                r"|bb[\s-]?flat"
+                r"|si[\s-]?bemol(?:le)?"
+                r"|sib\b"
+                r"|in[\s-]+sib"
+                r")\b",
+                re.IGNORECASE,
+            ),
         ),
-    ),
-    ("F", re.compile(r"(?:in[\s-]+)?f(?:[\s-]?(?:dur|major))?\b", re.IGNORECASE)),
-    ("C", re.compile(r"(?:in[\s-]+)?c(?:[\s-]?(?:dur|major))?\b", re.IGNORECASE)),
-    ("A", re.compile(r"(?:in[\s-]+)?a(?:[\s-]?(?:dur|major))?\b", re.IGNORECASE)),
+    ("F", re.compile(r"(?:in[\s-]+f(?:[\s-]?(?:dur|major))?|f[\s-]dur)\b", re.IGNORECASE)),
+    ("C", re.compile(r"(?:in[\s-]+c(?:[\s-]?(?:dur|major))?|c[\s-]dur)\b", re.IGNORECASE)),
+    ("A", re.compile(r"(?:in[\s-]+a(?:[\s-]?(?:dur|major))?|a[\s-]dur)\b", re.IGNORECASE)),
 ]
 
 
@@ -97,16 +104,58 @@ def detect_tuning(text: str, *, position: int, matched_synonym: str, fallback: s
     return fallback.upper() if fallback else ""
 
 
-def tuning_suffix(standard: str, detected: str) -> str | None:
+def tuning_for_filename(standard: str, detected: str, *, include_when_known: bool) -> str | None:
     standard_code = (standard or "").upper()
     detected_code = (detected or "").upper()
-    if not detected_code:
-        return None
-    if not standard_code:
-        return None
-    if detected_code == standard_code:
-        return None
-    return TUNING_CODES.get(detected_code, detected_code)
+
+    if detected_code and standard_code and detected_code != standard_code:
+        return TUNING_CODES.get(detected_code, detected_code)
+    if include_when_known and standard_code:
+        return TUNING_CODES.get(standard_code, standard_code)
+    if include_when_known and detected_code:
+        return TUNING_CODES.get(detected_code, detected_code)
+    return None
+
+
+def tuning_suffix(standard: str, detected: str) -> str | None:
+    """Backward-compatible: only non-standard tunings."""
+    return tuning_for_filename(standard, detected, include_when_known=False)
+
+
+def _synonym_allowed(normalized_synonym: str) -> bool:
+    if len(normalized_synonym) >= 4:
+        return True
+    return len(normalized_synonym) >= 2 and normalized_synonym.endswith(".")
+
+
+def pick_instrument_label_text(text: str, instruments: list[Instrument]) -> str:
+    """Use the best single header line for instrument matching."""
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    if not lines:
+        return text.strip()
+
+    scored: list[tuple[int, int, str]] = []
+    for line in lines:
+        if len(line) > 50:
+            continue
+        if not match_instrument(line, instruments):
+            continue
+        score = 100 - len(line)
+        if re.match(r"^\d+[\.\s]", line):
+            score += 200
+        if line.startswith("("):
+            score -= 80
+        scored.append((score, len(line), line))
+
+    if scored:
+        scored.sort(key=lambda item: (-item[0], item[1]))
+        return scored[0][2]
+
+    for line in lines:
+        if len(line) <= 50 and re.match(r"^\d+[\.\s]", line):
+            return line
+
+    return ""
 
 
 def match_instrument(ocr_text: str, instruments: list[Instrument]) -> MatchResult | None:
@@ -120,6 +169,8 @@ def match_instrument(ocr_text: str, instruments: list[Instrument]) -> MatchResul
     for instrument in instruments:
         for synonym in instrument.synonyms:
             norm_synonym = normalize_for_match(synonym)
+            if not _synonym_allowed(norm_synonym):
+                continue
             position = _find_synonym_position(normalized, norm_synonym)
             if position is None:
                 continue

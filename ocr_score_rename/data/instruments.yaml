@@ -141,6 +141,13 @@ instruments:
       - bugle horn
       - flügelhorn in b
       - flügel horn
+      - cornet
+      - cornet 1
+      - cornet 2
+      - 1st cornet
+      - 2nd cornet
+      - flugelhorn 1
+      - flugelhorn 2
   - name: Horn
     tuning: F
     synonyms:
@@ -167,6 +174,8 @@ instruments:
       - tenorhorn in b
       - tenor horn in b
       - tenorhorn in b-dur
+      - tenorhorn in bp
+      - tenorhorn in bo
   - name: Bariton
     tuning: B
     synonyms:
@@ -224,6 +233,13 @@ instruments:
       - bass in es
       - bass in eß
       - bassetuba
+      - bass in bp
+      - bass in bo
+      - bass in b
+      - 1.bass
+      - 2.bass
+      - 3.bass
+      - 4.bass
 
   # Schlagwerk
   - name: Schlagzeug

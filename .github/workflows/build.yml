@@ -27,7 +27,10 @@ jobs:
 
       - name: Install Tesseract (macOS)
         if: runner.os == 'macOS'
-        run: brew install tesseract dylibbundler
+        run: |
+          brew install tesseract dylibbundler
+          curl -fsSL -o "$(brew --prefix)/share/tessdata/deu.traineddata" \
+            https://github.com/tesseract-ocr/tessdata/raw/main/deu.traineddata
 
       - name: Install Tesseract (Windows)
         if: runner.os == 'Windows'

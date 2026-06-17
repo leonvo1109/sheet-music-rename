@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/sheet-music-rename.iml" filepath="$PROJECT_DIR$/.idea/sheet-music-rename.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ocr-score-rename.iml" filepath="$PROJECT_DIR$/.idea/ocr-score-rename.iml" />
     </modules>
   </component>
 </project>

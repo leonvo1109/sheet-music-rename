@@ -1,4 +1,4 @@
-from ocr_score_rename.instruments import Instrument, match_instrument, tuning_suffix
+from ocr_score_rename.instruments import Instrument, match_instrument, pick_instrument_label_text, tuning_for_filename, tuning_suffix
 
 
 def test_match_instrument_case_insensitive():
@@ -36,6 +36,33 @@ def test_match_instrument_standard_tuning_has_no_suffix():
     instruments = [Instrument("Klarinette", "B", ("Klarinette", "clarinet"))]
     result = match_instrument("Klarinette in B 1", instruments)
     assert tuning_suffix(result.standard_tuning, result.detected_tuning) is None
+    assert tuning_for_filename(result.standard_tuning, result.detected_tuning, include_when_known=True) == "B"
+
+
+def test_match_instrument_ignores_short_false_synonyms():
+    instruments = [
+        Instrument("Posaune", "B", ("Posaune", "pos.", "in")),
+        Instrument("Bariton", "B", ("Bariton",)),
+    ]
+    assert match_instrument("in b dur marsch", instruments) is None
+
+
+def test_pick_instrument_label_prefers_numbered_part_line():
+    instruments = [
+        Instrument("Posaune", "B", ("Posaune", "trombone")),
+        Instrument("Bariton", "B", ("Bariton",)),
+    ]
+    header = "1 Posaune in BP In Harmonie verein\nMarsch\n(ist Trombone Sib)"
+    assert pick_instrument_label_text(header, instruments) == "1 Posaune in BP In Harmonie verein"
+
+
+def test_pick_instrument_label_prefers_short_matching_line():
+    instruments = [
+        Instrument("Bariton", "B", ("Bariton",)),
+        Instrument("Trompete", "B", ("Trompete",)),
+    ]
+    header = "Bayerischer Defiliermarsch\nBariton in B 1\nAllegro maestoso"
+    assert pick_instrument_label_text(header, instruments) == "Bariton in B 1"
 
 
 def test_match_instrument_percussion_english():
