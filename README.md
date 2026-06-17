@@ -11,7 +11,7 @@ Instrument counters are per type (`violin1`, `violin2`, …; `unknown_1`, `unkno
 
 Die **CI-Builds** (macOS/Windows) enthalten Tesseract bereits im Paket. Es sind **keine Admin-Rechte** und keine separate Tesseract-Installation nötig.
 
-1. ZIP-Artefakt aus GitHub Actions herunterladen (Release-Tag `v*` oder manueller Workflow-Lauf).
+1. ZIP-Release-Asset herunterladen (bei Release-Tags `v*` öffentlich verfügbar).
 2. Ordner entpacken, z. B. nach `OCR Score Rename`.
 3. **Windows:** Rechtsklick auf `ocr-score-rename.exe` → „Verknüpfung erstellen“ → Verknüpfung auf den Desktop ziehen.
 4. **macOS:** Doppelklick auf `ocr-score-rename` (ggf. einmalig in den Systemeinstellungen „Öffnen“ bestätigen).
@@ -70,10 +70,10 @@ Output: `dist/ocr-score-rename/` — diesen Ordner als ZIP verteilen.
 
 GitHub Actions (`.github/workflows/build.yml`) runs on tagged releases (`v*`) or manually via **workflow_dispatch**:
 
-- **macOS** and **Windows** — PyInstaller folder builds with bundled Tesseract (uploaded as artifacts).
+- **macOS** and **Windows** — PyInstaller builds with bundled Tesseract; for tags (`v*`) ZIPs are also published as public release assets.
 - **Ubuntu** — pytest (system Tesseract for tests only).
 
-Download artifacts from the Actions run after a tag push or manual trigger.
+For public downloads, use the release assets on the corresponding tag.
 
 ## Project layout
 

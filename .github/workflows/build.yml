@@ -50,11 +50,40 @@ jobs:
       - name: Build executable
         run: pyinstaller ocr-score-rename.spec
 
+      - name: Archive bundle (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          cd dist
+          ditto -c -k --sequesterRsrc --keepParent ocr-score-rename ../${{ matrix.artifact_name }}.zip
+
+      - name: Archive bundle (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "dist/ocr-score-rename/*" -DestinationPath "${{ matrix.artifact_name }}.zip" -Force
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact_name }}
-          path: dist/ocr-score-rename/
+          path: ${{ matrix.artifact_name }}.zip
+
+  publish_release_assets:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-assets/*/*.zip
 
   test:
     runs-on: ubuntu-latest
