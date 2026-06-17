@@ -1,0 +1,303 @@
+# Blasorchester — deutsche Namen, Standard-Stimmung, mehrsprachige OCR-Synonyme.
+instruments:
+  # Holzblasinstrumente
+  - name: Piccoloflöte
+    tuning: C
+    synonyms:
+      - piccolo
+      - picc.
+      - ottavino
+      - petite flute
+      - piccolofloete
+      - kleine flöte
+  - name: Flöte
+    tuning: C
+    synonyms:
+      - flute
+      - fl.
+      - flauto
+      - floete
+      - flûte
+      - flote
+      - flöte 1
+      - flöte 2
+      - flöte 3
+  - name: Oboe
+    tuning: C
+    synonyms:
+      - ob.
+      - hautbois
+      - oboe 1
+      - oboe 2
+      - hautbois 1
+  - name: Fagott
+    tuning: C
+    synonyms:
+      - bassoon
+      - fg.
+      - basson
+      - fagotto
+      - fagott 1
+      - fagott 2
+  - name: Klarinette
+    tuning: B
+    synonyms:
+      - clarinet
+      - clarinette
+      - clarinetto
+      - cl.
+      - klarinette 1
+      - klarinette 2
+      - klarinette 3
+      - klarinette in b
+      - es-klarinette
+      - eß-klarinette
+      - ess-klarinette
+      - es klarinette
+      - klarinette in es
+      - klarinette in eß
+      - e-flat clarinet
+      - clarinette en mib
+      - clarinetto in sib
+  - name: Bassklarinette
+    tuning: B
+    synonyms:
+      - bass clarinet
+      - b-klarinette
+      - bkl.
+      - clarinette basse
+      - clarinetto basso
+      - bassklarinette in b
+      - bass clarinet in b-flat
+  - name: Saxophon
+    tuning: ""
+    synonyms:
+      - saxophone
+      - sax.
+      - sax
+      - saxophones
+      - saxophon 1
+      - saxophon 2
+  - name: Altsaxophon
+    tuning: E
+    synonyms:
+      - altsax
+      - alto saxophone
+      - alto sax
+      - a-sax
+      - saxophone alto
+      - sax alto
+      - saxophon alt
+      - sax alt
+      - saxophone alto en mib
+      - altsaxophon in es
+  - name: Tenorsaxophon
+    tuning: B
+    synonyms:
+      - tenorsax
+      - tenor saxophone
+      - tenor sax
+      - t-sax
+      - saxophone tenor
+      - sax tenor
+      - saxophon tenor
+      - tenorsaxophon in b
+      - saxophone ténor
+  - name: Basssaxophon
+    tuning: E
+    synonyms:
+      - baritonsax
+      - baritone saxophone
+      - baritone sax
+      - b-sax
+      - baritonsaxophon
+      - saxophone baryton
+      - saxophone bariton
+      - sax bariton
+      - sax baryton
+      - basssaxophon in es
+      - baritonsaxophon in es
+
+  # Blechblasinstrumente
+  - name: Trompete
+    tuning: B
+    synonyms:
+      - trumpet
+      - trp.
+      - tromba
+      - trompette
+      - trompete 1
+      - trompete 2
+      - trompete 3
+      - trompete in b
+      - trompette en sib
+  - name: Flügelhorn
+    tuning: B
+    synonyms:
+      - flugelhorn
+      - flh.
+      - flhg.
+      - flicorno
+      - bugle horn
+      - flügelhorn in b
+      - flügel horn
+  - name: Horn
+    tuning: F
+    synonyms:
+      - waldhorn
+      - french horn
+      - hn.
+      - cor
+      - corno
+      - cor d'harmonie
+      - corno francese
+      - horn in f
+      - waldhorn in f
+      - horn 1
+      - horn 2
+      - horn 3
+      - horn 4
+  - name: Tenorhorn
+    tuning: B
+    synonyms:
+      - tenor horn
+      - t-hrn.
+      - t-horn
+      - ten.hrn.
+      - tenorhorn in b
+      - tenor horn in b
+      - tenorhorn in b-dur
+  - name: Bariton
+    tuning: B
+    synonyms:
+      - baritone horn
+      - bar.
+      - bhn.
+      - bhr.
+      - baritonhorn
+      - baryton
+      - bariton in b
+      - bar 1
+      - bar 2
+      - bar 3
+  - name: Posaune
+    tuning: B
+    synonyms:
+      - trombone
+      - pos.
+      - tromboni
+      - trombone basse
+      - posaune 1
+      - posaune 2
+      - posaune 3
+      - posaune 4
+      - bassposaune
+      - posaune in b
+  - name: Euphonium
+    tuning: B
+    synonyms:
+      - euph.
+      - barytonhorn
+      - eufonium
+      - tenorbaß
+      - tenor bass
+      - euphonium in b
+      - euphonium in b-dur
+  - name: Basstuba
+    tuning: B
+    synonyms:
+      - b-tuba
+      - bass tuba
+      - baßtuba
+      - basstuba in b
+      - tuba in b
+      - tuba in b-dur
+      - tuba in f
+      - f-tuba
+      - tuba in es
+      - tuba in eß
+      - es-tuba
+      - eß-tuba
+      - eb-tuba
+      - eb-bass
+      - eßbass
+      - bass in es
+      - bass in eß
+      - bassetuba
+
+  # Schlagwerk
+  - name: Schlagzeug
+    tuning: ""
+    synonyms:
+      - percussion
+      - perc.
+      - schlagz.
+      - schlagwerk
+      - drums
+      - drumset
+      - percussion 1
+      - percussion 2
+      - percussion 3
+      - percussion 4
+      - perc 1
+      - perc 2
+      - schlagzeug 1
+      - schlagzeug 2
+  - name: Pauken
+    tuning: ""
+    synonyms:
+      - timpani
+      - timp.
+      - pauke
+      - kettle drums
+      - timbales
+      - pauken 1
+      - pauken 2
+      - timpani 1
+      - timpani 2
+  - name: Glockenspiel
+    tuning: C
+    synonyms:
+      - glock.
+      - lyra
+      - orchestra bells
+      - bells
+      - campanelli
+      - carillon
+      - glockenspiel in c
+  - name: Xylophon
+    tuning: C
+    synonyms:
+      - xylophone
+      - xyl.
+      - xylofon
+      - xylophon in c
+
+  # Weitere Stimmen
+  - name: Kontrabass
+    tuning: E
+    synonyms:
+      - contrabass
+      - double bass
+      - cb.
+      - kontrabaß
+      - kontrabass in es
+      - contrebasse
+      - contrabbasso
+  - name: Gesang
+    tuning: ""
+    synonyms:
+      - voice
+      - gesang 1
+      - gesang 2
+      - chor
+      - soprano
+      - alto
+      - tenor
+      - sop.
+      - alt.
+      - ten.
+      - bass voice
+      - sopran
+      - chant
+      - voce
